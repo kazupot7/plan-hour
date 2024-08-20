@@ -1,53 +1,52 @@
-"use client";
-import React, { useState } from 'react';
-import '../../styles/signup.css'; 
-import 'bootstrap-icons/font/bootstrap-icons.css'; 
-import Link from 'next/link'
+import React from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../../styles/Signup.module.css';
 
-const Signup = () => {
-    const [showPassword, setShowPassword] = useState(false);
+const SignUp: React.FC = () => {
+  return (
+    <Container fluid className={`d-flex justify-content-center align-items-center ${styles.signupContainer}`}>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
+      <Row className={`w-100 ${styles.signupRow}`}>
+        <Col md={6} className={`p-5 ${styles.formContainer}`}>
+          <h2 className="mb-4">Sign Up</h2>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
 
-    return (
-        <div className='outerdiv'>
-            <div className='flexContainer'>
+            <Form.Group className="mb-3" controlId="formConfirmPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control type="password" placeholder="Confirm Password" />
+            </Form.Group>
 
-                <div className='leftBox'>
-                    <h1>Sign up</h1>
-                    <div className="form-group">
-                        <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" />
-                    </div>
-                    <div className="form-group">
-                        <div className="icon-container">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                className="form-control" 
-                                id="password" 
-                                placeholder="Password" 
-                            />
-                            <i 
-                                className={`bi ${showPassword ? 'bi-eye-fill' : 'bi-eye-slash'} custom-icon`} 
-                                onClick={togglePasswordVisibility}
-                            ></i>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" />
-                    </div>
-                    <button type="submit" className="btn btn-primary rounded-pill">Sign Up</button>
-                    <p className="signin-link">Already have an account? <Link href="/login">Sign in</Link></p>
-                </div>
-
-                <div className='rightBox'>
-                    <img src='/cover.png' alt="Cover" />
-                </div>
-
-            </div>
-        </div>
-    );
+            <Button variant="primary" type="submit" className={styles.signupButton}>
+              Sign Up
+            </Button>
+          </Form>
+          <p className="mt-3">
+            Already have an account? <a href="/signin">Sign In</a>
+          </p>
+        </Col>
+        <Col md={6} className={styles.backgroundContainer}>
+          <div className={styles.backgroundImages}>
+            {/* You can use Image components here if you want to optimize for Next.js */}
+            <Image src="/cover.png" layout="fill" objectFit="cover" alt="Background image 1" />
+            {/* Repeat for other images */}
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
-export default Signup;
+export default SignUp;
