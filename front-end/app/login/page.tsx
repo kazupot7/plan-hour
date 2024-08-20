@@ -1,50 +1,54 @@
-'use client';
-import React, { useState, FormEvent } from 'react';
-import axios from 'axios';
-import useAuthStore, { AuthState } from '../../store/useAuthStore'; // Adjust the import as per your Zustand store setup
+"use client";
+import React, { useState } from 'react';
+import '../../styles/signin.css'; 
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
+import Link from 'next/link';
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const setToken = useAuthStore((state: AuthState) => state.setToken); // Define AuthState type for state
+const Signup = () => {
+    const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post<{ token: string }>('/api/auth/login', { email, password });
-      setToken(res.data.token);
-    } catch (err: any) {
-      console.error(err.response?.data || 'Login failed');
-    }
-  };
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
-  return (
-    <form onSubmit={handleLogin}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
-  );
+    return (
+        <div className='outerdiv'>
+            <div className='flexContainer'>
+                <div className='leftBox'>
+                    <h1>Log in</h1>
+                    <div className="form-group">
+                        <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" />
+                    </div>
+                    <div className="form-group">
+                        <div className="icon-container">
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                className="form-control" 
+                                id="password" 
+                                placeholder="Password" 
+                            />
+                            <i 
+                                className={`bi ${showPassword ? 'bi-eye-fill' : 'bi-eye-slash'} custom-icon`} 
+                                onClick={togglePasswordVisibility}
+                            ></i>
+                        </div>
+                    </div>
+                    <div className="form-options">
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="rememberMe" />
+                            <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
+                        </div>
+                        <Link href="/forgot-password" className="forgot-password">Forgot Password?</Link>
+                    </div>
+                    <button type="submit" className="btn btn-primary rounded-pill">Login</button>
+                    <p className="signin-link">Don't have an account? <Link href="/signup">Sign Up</Link></p>
+                </div>
+                <div className='rightBox'>
+                    <img src='/cover.png' alt="Cover" />
+                </div>
+            </div>
+        </div>
+    );
 };
 
-export default Login;
+export default Signup;
