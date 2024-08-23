@@ -1,28 +1,24 @@
-import React from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../../styles/Signup.module.css';
+"use client";
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../../styles/signup.css'; 
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
+import Link from 'next/link';
 
-const SignUp: React.FC = () => {
-  return (
-    <Container fluid className={`d-flex justify-content-center align-items-center ${styles.signupContainer}`}>
-      <Head>
-        <title>Sign Up</title>
-      </Head>
-      <Row className={`w-100 ${styles.signupRow}`}>
-        <Col md={6} className={`p-5 ${styles.formContainer}`}>
-          <h2 className="mb-4">Sign Up</h2>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
+const Signup = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -127,4 +123,4 @@ const SignUp: React.FC = () => {
     );
 };
 
-export default SignUp;
+export default Signup;
