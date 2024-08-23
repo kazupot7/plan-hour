@@ -1,15 +1,28 @@
 // pages/index.tsx
- "use client";
-import React, { useState } from 'react';
-import LandingPage from './landingPage/page';
+import React from 'react';
+import CustomNavbar from './components/NavBar';
+import Card from './components/Cards';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home: React.FC = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <div >
-      <LandingPage loggedInBool={loggedIn}/>
+      <CustomNavbar />
+      <div
+        className="w-100"
+        style={{ 
+          backgroundImage: "url('/image.png')",
+          height: '400px',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+
+      </div>
+
+      <Card/>
+
       
     </div>
   );
