@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,10 +17,6 @@ const Signup = () => {
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-    };
-
-    const extractNameFromEmail = (email: string) => {
-        return email.split('@')[0];
     };
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,10 +35,8 @@ const Signup = () => {
                 },
             };
 
-            const name = extractNameFromEmail(email);
-
             const { data } = await axios.post(
-                'http://localhost:5000/api/users/register',
+                '/api/users',
                 { name, email, password },
                 config
             );
@@ -70,6 +65,16 @@ const Signup = () => {
                     {message && <div className="alert alert-success">{message}</div>}
                     {loading && <div>Loading...</div>}
                     <form onSubmit={submitHandler}>
+                        <div className="form-group">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="name" 
+                                placeholder="Name" 
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
                         <div className="form-group">
                             <input 
                                 type="email" 
